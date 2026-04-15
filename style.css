@@ -124,6 +124,15 @@ ul {
     transform: translateZ(0); /* Hardware acceleration for crisp rendering */
 }
 
+.mobile-menu-trigger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2.2rem;
+    color: var(--text-main);
+    cursor: pointer;
+}
+
 .header-container {
     flex-direction: row-reverse;
     padding-right: 0.5rem; /* Push menu further to the right */
@@ -549,16 +558,173 @@ ul {
 .right-reveal { transform: translateX(50px); }
 .left-reveal.visible, .right-reveal.visible { transform: translateX(0); }
 
-/* Responsive */
+/* Responsive (Mobile View Perfection) */
 @media (max-width: 768px) {
-    .header-container { flex-direction: column; gap: 1rem; }
+    /* Header & Navigation Fixes */
+    .header {
+        position: fixed; /* Keep it fixed to ensure nav menu overlaps correctly */
+        height: 80px; /* Force strict height */
+        padding: 0;
+        width: 100%;
+        background-color: var(--bg-light); /* Enforce solid background */
+        z-index: 9999;
+    }
+    .header-container { 
+        display: block !important;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        padding: 0;
+    }
+    /* Explicit DOM Targeting + Absolute Positioning to guarantee structure */
+    .header .header-container .logo {
+        position: absolute;
+        left: 20px; /* Far Left */
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+        padding: 0;
+        display: block;
+    }
+    .header .header-container .logo img {
+        height: 55px; 
+        width: 55px;
+        display: block;
+    }
+    .header .header-container .mobile-menu-trigger {
+        position: absolute;
+        right: 20px; /* Far Right */
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex !important; /* Expose icon natively */
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: var(--text-main);
+        font-size: 2.2rem;
+        z-index: 10000;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .nav {
+        display: none !important; /* Hide via core override */
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--bg-light);
+        position: absolute;
+        top: 80px; /* Strict height measurement drop */
+        left: 0;
+        padding: 2.5rem 0 1.5rem 0; /* Extra top padding for the X button to breathe */
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        text-align: center;
+        z-index: 9998;
+    }
+    .menu-close-btn {
+        position: absolute;
+        top: 15px;
+        left: 25px; /* Safely floating on the left side of the menu panel */
+        background: transparent;
+        border: none;
+        font-size: 2.5rem;
+        color: var(--text-main);
+        cursor: pointer;
+        outline: none;
+        z-index: 9999;
+    }
+    .nav.active {
+        display: flex !important; /* Override none logic cleanly */
+    }
+    .nav a {
+        font-size: 1.5rem; 
+        padding: 1rem 0; /* Huge tappable area */
+        display: block;
+    }
+    .nav a::after {
+        display: none;
+    }
+
+    /* Hero Restrictions */
+    .hero {
+        height: 85vh; /* Free up some scrolling height natively */
+    }
+    .hero-content { 
+        padding: 2rem 1.5rem; 
+        width: 90%; 
+    }
+    .main-heading { 
+        font-size: 3.2rem; 
+        margin-bottom: 0.2rem;
+    }
+    .hero-subtitle {
+        font-size: 1.6rem;
+        letter-spacing: 1px;
+    }
+
+    /* Column Stacking & Centering */
     .about-flex, .info-flex { 
         flex-direction: column; 
         text-align: center; 
+        gap: 2.5rem; /* Tighter gap on mobile */
     }
-    .about-text, .info-details { text-align: center; }
-    .contact-list li { justify-content: center; }
-    .social-sidebar { display: none; } /* Hide on mobile to save space */
-    .hero-content { padding: 2rem; }
-    .main-heading { font-size: 3.5rem; }
+    .about-text h2, .section-title {
+        font-size: 2.8rem;
+    }
+    .about, .gallery, .info-hub {
+        padding: 40px 0; /* Shrink padding on smaller screens */
+    }
+    .about-image img {
+        height: auto;
+        max-height: 380px; /* Compress the height visually */
+    }
+
+    /* Contact Details Formatting */
+    .contact-list li { 
+        flex-direction: column; /* Stack icons above text to lock centering */
+        justify-content: center; 
+        gap: 0.5rem;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    .hours-block {
+        align-items: center !important; /* Forces the hours clock to center dynamically */
+    }
+    .hours-block i {
+        margin-top: 0;
+    }
+    .hours-text {
+        align-items: center; /* Center schedule text */
+    }
+    .bottom-closing {
+        font-size: 2.2rem;
+        margin-top: 2rem;
+    }
+
+    /* Widget & Map Adjustments */
+    .map-container {
+        height: 300px;
+        width: 100%;
+        border-radius: 12px;
+    }
+    .social-sidebar { 
+        display: none; 
+    } /* Purged to save heavy screen space */
+    .sticky-footer .footer-cta {
+        padding: 0.8rem 2.5rem;
+        font-size: 1.1rem;
+    }
+    .acc-widget {
+        right: 15px;
+        bottom: 15px; /* Pull tighter into corner */
+    }
+    .acc-toggle {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
 }

@@ -1,3 +1,27 @@
+// Mobile Navigation Dropdown
+const menuTrigger = document.getElementById('menuTrigger');
+const navMenu = document.getElementById('navMenu');
+const menuClose = document.getElementById('menuClose');
+
+if (menuTrigger && navMenu) {
+    menuTrigger.addEventListener('click', () => {
+        navMenu.classList.add('active'); // Explicit open
+    });
+
+    if (menuClose) {
+        menuClose.addEventListener('click', () => {
+            navMenu.classList.remove('active'); // Explicit close
+        });
+    }
+
+    // Close menu when tapping a link (important for single page apps/anchors)
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+        });
+    });
+}
+
 // Accessibility Widget
 const accToggle = document.getElementById('accToggle');
 const accMenu = document.getElementById('accMenu');
