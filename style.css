@@ -133,6 +133,10 @@ ul {
     cursor: pointer;
 }
 
+.menu-close-btn {
+    display: none;
+}
+
 .header-container {
     flex-direction: row-reverse;
     padding-right: 0.5rem; /* Push menu further to the right */
@@ -626,6 +630,7 @@ ul {
         z-index: 9998;
     }
     .menu-close-btn {
+        display: block;
         position: absolute;
         top: 15px;
         left: 25px; /* Safely floating on the left side of the menu panel */
